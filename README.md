@@ -1,4 +1,4 @@
-## `ufn`
+## `oruzka`
 
 Minimal set of unsafe operation wrapper utilities.
 
