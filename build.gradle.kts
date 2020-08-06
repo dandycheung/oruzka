@@ -1,7 +1,7 @@
-plugins { `java-library`; `maven-publish` }
+plugins { `java-library`; jacoco; `maven-publish` }
 repositories { jcenter() }
 
-group = "io.vacco.ufn"
+group = "io.vacco.oruzka"
 version = "0.0.1"
 
 java {
@@ -16,9 +16,9 @@ dependencies {
 }
 
 object Publishing {
-  const val gitUrl = "https://github.com/vaccovecrana/ufn.git"
-  const val siteUrl = "https://github.com/vaccovecrana/ufn"
-  const val libraryDesc = "Minimal set of unsafe operation wrapper utilities."
+  const val gitUrl = "https://github.com/vaccovecrana/oruzka.git"
+  const val siteUrl = "https://github.com/vaccovecrana/oruzka"
+  const val libraryDesc = "Minimal unsafe operation utilities"
 }
 
 publishing {
