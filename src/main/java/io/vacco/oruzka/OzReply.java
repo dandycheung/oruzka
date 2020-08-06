@@ -24,7 +24,7 @@ import java.util.HashSet;
  * The type {@code T} is provided as a placeholder for the kind of answer that
  * the caller expects to receive from the operation that created this reply.
  *
- * A payload, if you will. For example, if a service class provides the following method:
+ * For example, if a service class provides the following method:
  *
  * {@code public Reply<File> copy(File source, File dest) throws IOException}
  *
@@ -72,7 +72,7 @@ public class OzReply<T> {
   private Status status;
   private Object error;
   private String message;
-  private Collection<String> warnings = new HashSet<>();
+  private final Collection<String> warnings = new HashSet<>();
 
   /** @return the reply's data, if any. */
   public T getData() { return data; }
@@ -95,7 +95,7 @@ public class OzReply<T> {
   private void setError(Object error) {
     this.error = error;
     this.status = Status.BAD;
-    if (error != null && error instanceof Throwable) {
+    if (error instanceof Throwable) {
       Throwable t = (Throwable) error;
       setMessage(t.getMessage());
     } else { message = MESSAGE_DEFAULT; }
@@ -122,6 +122,16 @@ public class OzReply<T> {
   }
 
   /**
+   * Builder convenience method.
+   * @param data the command result's payload.
+   * @param <T> the command result data.
+   * @return a new reply.
+   */
+  public static <T> OzReply<T> asOk(T data) {
+    return new OzReply<T>().ok(data);
+  }
+
+  /**
    * Signal an error in a command.
    * @param error the root cause of the error.
    * @return this reply.
@@ -129,6 +139,15 @@ public class OzReply<T> {
   public OzReply<T> bad(Object error) {
     setError(error);
     return this;
+  }
+
+  /**
+   * Builder convenience method.
+   * @param error an immediate root cause.
+   * @return a new bad reply.
+   */
+  public static OzReply<?> asBad(Object error) {
+    return new OzReply<>().bad(error);
   }
 
   /**
@@ -152,7 +171,7 @@ public class OzReply<T> {
    */
   public OzReply<T> warning(String message) {
     warnings.add(message != null ? message :
-        "This reply signaled a warning without provided cause. please verify your code."
+        "This reply signaled a warning without providing cause. please verify your code."
     );
     return this;
   }

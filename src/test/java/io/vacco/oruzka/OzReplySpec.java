@@ -13,10 +13,10 @@ public class OzReplySpec { static {
     it("enumerates status values.", () -> {
       for (OzReply.Status status : values()) { System.out.println(status); }
     });
-    it("can parse a status value.", () -> assertTrue(valueOf("OK") == OK));
-    it("has unknown status by default", () -> assertTrue(new OzReply().getStatus() == UNKNOWN));
+    it("can parse a status value.", () -> assertSame(valueOf("OK"), OK));
+    it("has unknown status by default", () -> assertSame(new OzReply().getStatus(), UNKNOWN));
     it("holds an error message with no additional information by default.", () ->
-      assertTrue(new OzReply().getMessage().equals(OzReply.MESSAGE_DEFAULT))
+        assertEquals(new OzReply().getMessage(), OzReply.MESSAGE_DEFAULT)
     );
     it("holds no error data.", () -> assertNull(new OzReply().getError()));
     it("default status is UNKNOWN, thus not in a failed or successful state.", () -> {
@@ -28,6 +28,10 @@ public class OzReplySpec { static {
       OzReply<Long> r = new OzReply<Long>().ok(0L);
       assertTrue(r.ok());
       assertEquals(r.getStatus(), OK);
+    });
+    it("provides a convenience success method.", () -> {
+      OzReply<Long> r = OzReply.asOk(123L);
+      assertNotNull(r.getData());
     });
     it("always indicates if it is bad.", () -> {
       OzReply r = new OzReply().bad(new IllegalStateException());
@@ -86,7 +90,7 @@ public class OzReplySpec { static {
       assertNull(r.getError());
       assertTrue(r.ok());
       assertFalse(r.bad());
-      assertEquals(r.getData(), new Long(0L));
+      assertEquals(r.getData(), Long.valueOf(0L));
     });
     it("always has an ERROR status, plus an error message if it fails with a single exception.", () -> {
       OzReply r = new OzReply().bad(new IllegalStateException("A processing error occurred."));
@@ -121,6 +125,8 @@ public class OzReplySpec { static {
       assertNotNull(r.getMessage());
       assertTrue(r.getMessage().length() > 0);
     });
+    it("provides a convenience error method",
+        () -> assertNotNull(OzReply.asBad(new IllegalStateException("Some error")).getError()));
     it("fails automatically if it is indicated to succeed with an invalid response payload.", () -> {
       OzReply<String> r = new OzReply<String>().ok(null);
       assertNotNull(r.getError());
