@@ -131,26 +131,26 @@ public class OzReplySpec { static {
       OzReply<Integer> r = new OzReply<Integer>().ok(12345);
       r.warning("This service method call will be deprecated in the next version, so stop using it.");
       assertTrue(r.ok());
-      assertTrue(r.isWarning());
+      assertTrue(r.warning());
       assertFalse(r.getWarnings().isEmpty());
     });
     it("can include warnings if it fails.", () -> {
       OzReply<Integer> r = new OzReply<Integer>().bad(new IllegalStateException());
       r.warning("This service method call will be deprecated in the next version, so stop using it.");
       assertTrue(r.bad());
-      assertTrue(r.isWarning());
+      assertTrue(r.warning());
       assertFalse(r.getWarnings().isEmpty());
     });
     it("includes a default warning message when a warning is signaled without a cause.", () -> {
       OzReply r = new OzReply().bad(new IllegalStateException("oops"));
       r.warning(null);
       assertTrue(r.bad());
-      assertTrue(r.isWarning());
+      assertTrue(r.warning());
       assertFalse(r.getWarnings().isEmpty());
     });
     it("has no warnings and does not indicate so if no warnings were issued at all.", () -> {
       OzReply<Long> r = new OzReply<Long>().ok(12345L);
-      assertFalse(r.isWarning());
+      assertFalse(r.warning());
       assertTrue(r.getWarnings().isEmpty());
     });
     it("can be logged to the console.", () -> {
