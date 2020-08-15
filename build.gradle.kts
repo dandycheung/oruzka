@@ -2,7 +2,7 @@ plugins { `java-library`; jacoco; `maven-publish` }
 repositories { jcenter() }
 
 group = "io.vacco.oruzka"
-version = "0.0.2"
+version = "0.0.3"
 
 java {
   withJavadocJar()

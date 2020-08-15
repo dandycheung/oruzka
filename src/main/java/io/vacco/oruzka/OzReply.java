@@ -2,6 +2,7 @@ package io.vacco.oruzka;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.function.Function;
 
 /**
  * A reply is a simple wrapper object which represents an answer
@@ -95,17 +96,19 @@ public class OzReply<T> {
   private void setError(Object error) {
     this.error = error;
     this.status = Status.BAD;
-    if (error instanceof Throwable) {
-      Throwable t = (Throwable) error;
-      setMessage(t.getMessage());
-    } else { message = MESSAGE_DEFAULT; }
   }
 
   /** @return the error message, if any. */
-  public String getMessage() { return message == null ? MESSAGE_DEFAULT : message; }
-  private void setMessage(String message) {
-    if (message != null && message.trim().length() > 0) { this.message = message; }
-    else { this.message = MESSAGE_DEFAULT; }
+  public String getMessage() {
+    if (message != null && message.trim().length() > 0) {
+      return this.message;
+    } else if (error instanceof Throwable) {
+      String tMsg = ((Throwable) error).getMessage();
+      if (tMsg != null && tMsg.trim().length() > 0) {
+        return tMsg;
+      }
+    }
+    return MESSAGE_DEFAULT;
   }
 
   /** @return any warnings issued for this reply, if any. */
@@ -153,26 +156,17 @@ public class OzReply<T> {
   /**
    * Signal an error in a command, with an additional explanation.
    * @param error        the root cause of the error.
-   * @param errorMessage an optional explanation of the error. May be <code>null</code>.
+   * @param errorMessage
+   *   an optional explanation of the error. May be <code>null</code>.
+   *   When <code>errorMessage</code> is not <code>null</code> and not
+   *   empty, it will take priority over <code>error</code>'s internal
+   *   message, only when <code>error</code> is an instance of
+   *   <code>Throwable</code>.
    * @return this reply.
    */
   public OzReply<T> bad(Object error, String errorMessage) {
     setError(error);
-    if (errorMessage != null && errorMessage.trim().length() > 0) {
-      setMessage(errorMessage);
-    }
-    return this;
-  }
-
-  /**
-   * Signal an execution warning in a command, with additional information.
-   * @param message the cause for the warning, if any.
-   * @return this reply.
-   */
-  public OzReply<T> warning(String message) {
-    warnings.add(message != null ? message :
-        "This reply signaled a warning without providing cause. please verify your code."
-    );
+    this.message = errorMessage;
     return this;
   }
 
@@ -193,6 +187,45 @@ public class OzReply<T> {
    * @return {@code true} if the command includes warning messages, {@code false} otherwise.
    */
   public boolean warning() { return !this.warnings.isEmpty(); }
+
+  /**
+   * Signal an execution warning in a command, with additional information.
+   * @param message the cause for the warning, if any.
+   * @return this reply.
+   */
+  public OzReply<T> warning(String message) {
+    warnings.add(message != null ? message :
+        "This reply signaled a warning without providing cause. please verify your code."
+    );
+    return this;
+  }
+
+  /**
+   * Convenience chaining method to process a reply as a series of processing steps. For example:
+   *
+   * <pre>
+   * OzReply&lt;String&gt; r = OzReply.asOk(123L)
+   *   .then(num -&gt; num.toString());
+   * </pre>
+   *
+   * @param fn a reply transform function which receives the last input result, and yields a new reply.
+   * @param <O> the final output result type.
+   * @return
+   *  a reply in either <code>ok</code> or <code>bad</code> state, which depends
+   *  on the processing outcomes of each link in the chain. When the reply is in
+   *  <code>bad</code> state, it will include the last error that occurred in the
+   *  chain.
+   */
+  public <O> OzReply<O> then(Function<T, OzReply<O>> fn) {
+    if (this.ok()) {
+      try {
+        return fn.apply(this.data);
+      } catch (Exception x) {
+        return new OzReply<O>().bad(x);
+      }
+    }
+    return new OzReply<O>().bad(this.error);
+  }
 
   @Override
   public String toString() {
