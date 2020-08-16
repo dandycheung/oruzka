@@ -71,7 +71,9 @@ public class OzReply<T> {
 
   private T data;
   private Status status;
+
   private Object error;
+  private Object errorInput;
   private String message;
   private final Collection<String> warnings = new HashSet<>();
 
@@ -96,6 +98,16 @@ public class OzReply<T> {
   private void setError(Object error) {
     this.error = error;
     this.status = Status.BAD;
+  }
+
+  /** @return input data,if any, that caused an error in this reply. */
+  public Object getErrorInput() {
+    return errorInput;
+  }
+  private <O> OzReply<O> fromErrorInput(Object x) {
+    OzReply<O> xr = OzReply.asBad(x);
+    xr.errorInput = this.data;
+    return xr;
   }
 
   /** @return the error message, if any. */
@@ -149,8 +161,8 @@ public class OzReply<T> {
    * @param error an immediate root cause.
    * @return a new bad reply.
    */
-  public static OzReply<?> asBad(Object error) {
-    return new OzReply<>().bad(error);
+  public static <T> OzReply<T> asBad(Object error) {
+    return new OzReply<T>().bad(error);
   }
 
   /**
@@ -221,10 +233,10 @@ public class OzReply<T> {
       try {
         return fn.apply(this.data);
       } catch (Exception x) {
-        return new OzReply<O>().bad(x);
+        return fromErrorInput(x);
       }
     }
-    return new OzReply<O>().bad(this.error);
+    return fromErrorInput(this.error);
   }
 
   @Override

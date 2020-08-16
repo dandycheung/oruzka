@@ -194,6 +194,9 @@ public class OzReplySpec { static {
             throw new IllegalStateException("Not cool");
           });
       assertTrue(bad.bad());
+      assertNotNull(bad.getError());
+      assertNotNull(bad.getErrorInput());
+      assertEquals(bad.getErrorInput(), "Cool");
       assertEquals(bad.getMessage(), "Not cool");
     });
   });
