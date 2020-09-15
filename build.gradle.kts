@@ -1,7 +1,5 @@
 buildscript {
-  repositories {
-    maven { name = "VaccoOss"; setUrl("https://dl.bintray.com/vaccovecrana/vacco-oss") }
-  }
+  repositories { maven { name = "VaccoOss"; setUrl("https://dl.bintray.com/vaccovecrana/vacco-oss") } }
   dependencies { classpath("io.vacco.common:common-build:0.1.0") }
 }
 
