@@ -2,17 +2,17 @@ package io.vacco.oruzka.hash;
 
 public class OzXxHash {
 
-  public static int PRIME32_1 = 0x9E3779B1;
-  public static int PRIME32_2 = 0x85EBCA77;
-  public static int PRIME32_3 = 0xC2B2AE3D;
-  public static int PRIME32_4 = 0x27D4EB2F;
-  public static int PRIME32_5 = 0x165667B1;
+  public static final int PRIME32_1 = 0x9E3779B1;
+  public static final int PRIME32_2 = 0x85EBCA77;
+  public static final int PRIME32_3 = 0xC2B2AE3D;
+  public static final int PRIME32_4 = 0x27D4EB2F;
+  public static final int PRIME32_5 = 0x165667B1;
 
-  public static long PRIME64_1 = 0x9E3779B185EBCA87L;
-  public static long PRIME64_2 = 0xC2B2AE3D27D4EB4FL;
-  public static long PRIME64_3 = 0x165667B19E3779F9L;
-  public static long PRIME64_4 = 0x85EBCA77C2B2AE63L;
-  public static long PRIME64_5 = 0x27D4EB2F165667C5L;
+  public static final long PRIME64_1 = 0x9E3779B185EBCA87L;
+  public static final long PRIME64_2 = 0xC2B2AE3D27D4EB4FL;
+  public static final long PRIME64_3 = 0x165667B19E3779F9L;
+  public static final long PRIME64_4 = 0x85EBCA77C2B2AE63L;
+  public static final long PRIME64_5 = 0x27D4EB2F165667C5L;
 
   public static int hash32(byte[] b, int off, int len, int seed) {
     int h32;
