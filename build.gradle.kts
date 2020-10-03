@@ -8,6 +8,7 @@ configure<io.vacco.common.CbPluginProfileExtension> {
   addPmd()
   addSpotBugs()
   addClasspathHell()
+  setPublishingUrlTransform { repo -> "${repo.url}/${project.name}" }
   sharedLibrary()
 }
 
