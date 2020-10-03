@@ -8,6 +8,7 @@ configure<io.vacco.common.CbPluginProfileExtension> {
   addPmd()
   addSpotBugs()
   addClasspathHell()
+  sharedLibrary()
 }
 
 configure<JavaPluginExtension> {
