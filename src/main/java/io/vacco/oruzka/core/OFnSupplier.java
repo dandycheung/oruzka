@@ -1,4 +1,4 @@
-package io.vacco.oruzka;
+package io.vacco.oruzka.core;
 
 /**
  * An unsafe supplier of type <code>T</code>.
@@ -16,4 +16,12 @@ public interface OFnSupplier<T> {
    * @throws Exception if any error occurred.
    */
   T get() throws Exception;
+
+  static <T> T tryGet(OFnSupplier<T> sup) {
+    try {
+      return sup.get();
+    } catch (Exception e) {
+      throw new IllegalStateException(e);
+    }
+  }
 }

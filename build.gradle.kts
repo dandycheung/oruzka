@@ -1,12 +1,14 @@
-buildscript {
-  repositories { maven { name = "VaccoOss"; setUrl("https://dl.bintray.com/vaccovecrana/vacco-oss") } }
-  dependencies { classpath("io.vacco.common:common-build:0.1.0") }
-}
-
-apply(from = project.buildscript.classLoader.getResource("io/vacco/common/java-library.gradle.kts").toURI())
+plugins { id("io.vacco.common-build") version "0.5.3" }
 
 group = "io.vacco.oruzka"
-version = "0.0.4"
+version = "0.1.0"
+
+configure<io.vacco.common.CbPluginProfileExtension> {
+  addJ8Spec()
+  addPmd()
+  addSpotBugs()
+  addClasspathHell()
+}
 
 configure<JavaPluginExtension> {
   sourceCompatibility = JavaVersion.VERSION_1_8

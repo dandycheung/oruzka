@@ -1,4 +1,4 @@
-package io.vacco.oruzka;
+package io.vacco.oruzka.core;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -112,11 +112,11 @@ public class OzReply<T> {
 
   /** @return the error message, if any. */
   public String getMessage() {
-    if (message != null && message.trim().length() > 0) {
+    if (message != null && !message.trim().isEmpty()) {
       return this.message;
     } else if (error instanceof Throwable) {
       String tMsg = ((Throwable) error).getMessage();
-      if (tMsg != null && tMsg.trim().length() > 0) {
+      if (tMsg != null && !tMsg.trim().isEmpty()) {
         return tMsg;
       }
     }
@@ -167,7 +167,7 @@ public class OzReply<T> {
 
   /**
    * Signal an error in a command, with an additional explanation.
-   * @param error        the root cause of the error.
+   * @param error the root cause of the error.
    * @param errorMessage
    *   an optional explanation of the error. May be <code>null</code>.
    *   When <code>errorMessage</code> is not <code>null</code> and not

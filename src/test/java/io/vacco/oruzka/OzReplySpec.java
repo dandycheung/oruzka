@@ -1,5 +1,6 @@
 package io.vacco.oruzka;
 
+import io.vacco.oruzka.core.OzReply;
 import j8spec.junit.J8SpecRunner;
 import org.junit.runner.RunWith;
 import java.util.Collections;
@@ -7,9 +8,10 @@ import java.util.List;
 
 import static j8spec.J8Spec.*;
 import static org.junit.Assert.*;
-import static io.vacco.oruzka.OzReply.Status.*;
+import static io.vacco.oruzka.core.OzReply.Status.*;
 
 @RunWith(J8SpecRunner.class)
+@SuppressWarnings({"rawtypes"})
 public class OzReplySpec { static {
   context("A reply", () -> {
 

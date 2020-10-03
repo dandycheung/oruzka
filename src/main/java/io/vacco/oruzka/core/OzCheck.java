@@ -1,4 +1,4 @@
-package io.vacco.oruzka;
+package io.vacco.oruzka.core;
 
 /**
  * Basic assertions, with optional enum support for constant root cause definitions.
