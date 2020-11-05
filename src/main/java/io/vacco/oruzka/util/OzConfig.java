@@ -39,8 +39,8 @@ public class OzConfig {
   public static <T> T loadEnv(Function<URL, Map<String, Object>> loadFn,
                             Function<Map<String, Object>, T> mapFn,
                             String envProperty, String ... classpathSources) {
-    String[] envSources = System.getenv(envProperty).split(",");
-    return loadFrom(loadFn, mapFn, classpathSources, envSources);
+    String envRaw = System.getenv(envProperty);
+    return loadFrom(loadFn, mapFn, classpathSources, envRaw != null ? envRaw.split(",") : new String[]{});
   }
 
 }
