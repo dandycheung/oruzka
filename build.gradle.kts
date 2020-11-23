@@ -1,7 +1,7 @@
 plugins { id("io.vacco.common-build") version "0.5.3" }
 
 group = "io.vacco.oruzka"
-version = "0.1.1"
+version = "0.1.2"
 
 configure<io.vacco.common.CbPluginProfileExtension> {
   addJ8Spec()
