@@ -1,9 +1,9 @@
-## `oruzka`
+## jcwt
 
-Minimal set of unsafe operation wrapper utilities.
+`jcwt` is a minimal implementation of the Continuous Wavelet transform.
 
-```
-u  n  s  a  f  e
-o  r  u  z  k  a
-6  4  2 25  5  4
-```
+It is a Java port of [ruby-cwt](https://github.com/nishi-takao/ruby-cwt).
+
+Currently, only the Morlet wavelet is implemented.
+
+PRs and improvements are welcome.
