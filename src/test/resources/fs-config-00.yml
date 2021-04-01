@@ -1,0 +1,3 @@
+resourcePackages: [io.vacco.test.debug]
+hostName: test-server.vacco.io
+port: 8443

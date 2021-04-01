@@ -1,0 +1,4 @@
+provider: FileSystem
+resourcePackages: [io.vacco.test.default]
+hostName: localhost
+port: 8080
