@@ -1,9 +1,9 @@
-plugins { id("io.vacco.oss") version "1.0.0" }
+plugins { id("io.vacco.oss.gitflow") version "0.9.0" }
 
 group = "io.vacco.oruzka"
 version = "0.1.2"
 
-configure<io.vacco.oss.CbPluginProfileExtension> {
+configure<io.vacco.oss.gitflow.GsPluginProfileExtension> {
   addJ8Spec()
   addPmd()
   addClasspathHell()
