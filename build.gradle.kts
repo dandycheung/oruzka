@@ -7,7 +7,7 @@ configure<io.vacco.oss.gitflow.GsPluginProfileExtension> {
   addJ8Spec()
   addPmd()
   addClasspathHell()
-  sharedLibrary(true, false)
+  sharedLibrary(true, true)
 }
 
 configure<JavaPluginExtension> {
