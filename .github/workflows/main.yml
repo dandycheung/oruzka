@@ -8,5 +8,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: vaccovecrana/gitflow-oss-java-slim@testing
         with:
-          orgConfig: https://gist.githubusercontent.com/jjzazuet/078b980f21f9f3abfe96dff8c47d2da8/raw/e5862ea639b028f214e1b505df70c8622389cd25/org-config.json
+          orgConfig: https://vacco-oss.s3.us-east-2.amazonaws.com/vacco-org-config.json
           secretContext: ${{toJson(secrets)}}
