@@ -9,3 +9,4 @@ jobs:
       - uses: vaccovecrana/gitflow-oss-java-slim@main
         with:
           orgConfig: https://gist.githubusercontent.com/jjzazuet/078b980f21f9f3abfe96dff8c47d2da8/raw/0c70fb73f4ca57de1e3e19dbc291176ff0e9da00/org-config.json
+          secretContext: ${{toJson(secrets)}}
