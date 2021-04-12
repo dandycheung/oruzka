@@ -1,13 +1,12 @@
-plugins { id("io.vacco.oss.gitflow") version "0.9.0" }
+plugins { id("io.vacco.oss.gitflow") version "0.9.3" }
 
 group = "io.vacco.oruzka"
-version = "0.1.2"
+version = "0.1.4"
 
 configure<io.vacco.oss.gitflow.GsPluginProfileExtension> {
   addJ8Spec()
-  addPmd()
   addClasspathHell()
-  sharedLibrary(true, true)
+  sharedLibrary(true, false)
 }
 
 configure<JavaPluginExtension> {

@@ -9,10 +9,13 @@ public class OzMaps {
     return new AbstractMap.SimpleEntry<>(key, value);
   }
 
+  public static <K, V> Map<K, V> mapOn(Stream<Map.Entry<K, V>> entries) {
+    return entries.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+  }
+
   @SafeVarargs
   public static <K, V> Map<K, V> mapOf(Map.Entry<K, V> ... entries) {
-    return Arrays.stream(entries)
-        .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    return mapOn(Arrays.stream(entries));
   }
 
   @SafeVarargs
