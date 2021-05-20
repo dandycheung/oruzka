@@ -71,6 +71,7 @@ public class OzReply<T> {
 
   private T data;
   private Status status;
+  private int statusCode;
 
   private Object error;
   private Object errorInput;
@@ -91,6 +92,18 @@ public class OzReply<T> {
   /** @return the response status, if any. */
   public Status getStatus() {
     return status == null ? Status.UNKNOWN : status;
+  }
+
+  /** @return the response status code, if any. */
+  public int getStatusCode() { return statusCode; }
+
+  /**
+   * @param statusCode an operation status code.
+   * @return this reply.
+   */
+  public OzReply<T> withStatusCode(int statusCode) {
+    this.statusCode = statusCode;
+    return this;
   }
 
   /** @return the error data, if any. */

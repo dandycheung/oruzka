@@ -201,5 +201,9 @@ public class OzReplySpec { static {
       assertEquals(bad.getErrorInput(), "Cool");
       assertEquals(bad.getMessage(), "Not cool");
     });
+    it("sets a status code", () -> {
+      OzReply<String> r = OzReply.asOk("Created").withStatusCode(201);
+      assertEquals(r.getStatusCode(), 201);
+    });
   });
 }}
