@@ -20,8 +20,8 @@ public class OzHashSpec {
         Object[] strings = new Object[] {"Hello", "World"};
         OzArrays.toStringConcat(strings)
             .ifPresent(bytes -> {
-              String md5 = OzMd5.md5SumOf(bytes);
-              assertEquals("68E109F0F40CA72A15E05CC22786F8E6", md5);
+              String md5Hash = OzMd5.md5SumOf(bytes);
+              assertEquals("68E109F0F40CA72A15E05CC22786F8E6", md5Hash);
             });
       });
       it("can compute the MD5 sum of a file",  () -> {
