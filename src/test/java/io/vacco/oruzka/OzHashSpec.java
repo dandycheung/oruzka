@@ -10,14 +10,19 @@ import java.io.File;
 import java.util.stream.IntStream;
 
 import static j8spec.J8Spec.*;
+import static org.junit.Assert.*;
 
 @RunWith(J8SpecRunner.class)
 public class OzHashSpec {
   static {
     describe("Hashing", () -> {
       it("can hash an array of strings", () -> {
-        OzArrays.toStringConcat("Hello", "World")
-            .ifPresent(bytes -> System.out.println(OzMd5.md5SumOf(bytes)));
+        Object[] strings = new Object[] {"Hello", "World"};
+        OzArrays.toStringConcat(strings)
+            .ifPresent(bytes -> {
+              String md5Hash = OzMd5.md5SumOf(bytes);
+              assertEquals("68E109F0F40CA72A15E05CC22786F8E6", md5Hash);
+            });
       });
       it("can compute the MD5 sum of a file",  () -> {
         System.out.println(OzMd5.md5SumOf(new File("./build.gradle.kts")));
