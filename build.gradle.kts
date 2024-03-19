@@ -1,3 +1,5 @@
+import io.vacco.oss.gitflow.schema.GsConstants.testImplementation
+
 plugins { id("io.vacco.oss.gitflow") version "0.9.8" }
 
 group = "io.vacco.oruzka"
@@ -16,4 +18,5 @@ configure<JavaPluginExtension> {
 
 dependencies {
   testImplementation("com.esotericsoftware.yamlbeans:yamlbeans:1.15")
+
 }
