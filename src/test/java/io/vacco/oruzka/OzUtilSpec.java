@@ -5,7 +5,6 @@ import com.esotericsoftware.yamlbeans.YamlReader;
 import com.esotericsoftware.yamlbeans.YamlWriter;
 import io.vacco.oruzka.core.OFnSupplier;
 import io.vacco.oruzka.io.OzIo;
-import io.vacco.oruzka.util.OzConfig;
 import io.vacco.oruzka.util.OzPatchLeft;
 import j8spec.junit.J8SpecRunner;
 import org.junit.runner.RunWith;
@@ -109,14 +108,6 @@ public class OzUtilSpec {
         Optional<Flop> f = new OzPatchLeft().onMultiple(f0, f1, f2);
         assertTrue(f.isPresent());
         System.out.println(f.get());
-      });
-      it("can load config data from multiple sources", () -> {
-        MyConfig cfg = OzConfig.loadFrom(
-            OzUtilSpec::readYaml, OzUtilSpec::fromMap,
-            new String[] {"/io/vacco/oruzka/clp-config-00.yml"},
-            new String[] {"./src/test/resources/fs-config-00.yml", "./src/test/resources/fs-config-01.yml"}
-        );
-        System.out.println(cfg);
       });
     });
   }
